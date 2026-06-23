@@ -3,6 +3,8 @@
 
 **Team:** PowerRangers
 
+![image](./group_pic.png)
+
 ---
 
 ## Installation & Setup
