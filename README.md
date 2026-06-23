@@ -69,3 +69,11 @@ pip install -r requirements.txt
 ```
 
 You are now ready to launch Jupyter and open projet_notebook.ipynb!
+
+#### Exit Virtual Environment
+
+Use "deactivate" to quit your .venv
+
+```bash
+deactivate
+```
