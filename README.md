@@ -1,7 +1,7 @@
 # CPE393: Introduction to Data Science with Python
 **Final Group Project - Summer Semester 2026** 
 
-**Team:** PowerRangers
+**Team:** WaterRangers
 
 ![image](./group_pic.png)
 
@@ -17,7 +17,7 @@ This is the easiest way to run the notebook without installing anything on your 
 1. Open your browser and go to [Google Colab](https://colab.research.google.com/).
 2. In the popup window, select the **GitHub** tab.
 3. Paste the following repository link: 
-   `https://github.com/nikor3/PowerRangers`
+   `https://github.com/nikor3/WaterRangers`
 4. Select the `main` branch.
 5. Click on the `projet_notebook.ipynb` file to open and execute it.
 
