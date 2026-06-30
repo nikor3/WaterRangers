@@ -79,3 +79,45 @@ Use "deactivate" to quit your .venv
 ```bash
 deactivate
 ```
+
+
+## Web Application
+
+We built a simple web interface so you can test our water quality models without needing to run the full Python notebook.
+
+### Tools we used
+
+* **Streamlit:** To build the web page using only Python.
+* **Joblib:** To load our pre-trained machine learning models.
+* **Pandas:** To handle the data users enter.
+
+### How it works
+
+1. **Input:** Enter the water quality parameters (like pH, hardness, etc.) into the form.
+2. **Analysis:** The app runs your data through our three models: **..., ..., ...**.
+3. **Save:** You can save the results to a CSV file. We collect this data to help us improve our models for future versions.
+
+### Launch the app
+
+Make sure your virtual environment is active, then run this command in your terminal:
+
+```bash
+streamlit run app.py
+
+```
+
+The app will open automatically in your browser at `http://localhost:8501`.
+
+---
+
+### Project Structure
+
+```text
+web/ (WaterRangers)
+├── app.py                # The web app code
+├── assets/               # Logos and icons
+├── data/                 # Saved CSV records
+├── models/               # Saved model files (.joblib)
+└── requirements.txt      # List of dependencies
+
+```
