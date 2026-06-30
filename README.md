@@ -1,13 +1,28 @@
+<table style="border: none;">
+  <tr>
+    <td style="background-color: white; padding: 10px; border: none;">
+      <img src="web/assets/logo_kmutt.webp" width="120">
+    </td>
+    <td style="background-color: white; padding: 10px; border: none;">
+      <img src="web/assets/logo_esiea.png" width="120">
+    </td>
+  </tr>
+</table>
+
 # CPE393: Introduction to Data Science with Python
-**Final Group Project - Summer Semester 2026** 
 
-**Team:** WaterRangers
+## Team: WaterRangers
 
-![image](./group_pic.png)
+## NoteBook
 
----
+<p>
+  <img src="https://img.shields.io/badge/Python-3.12-blue?logo=python">
+  <img src="https://img.shields.io/badge/Jupyter-Notebook-F37626?logo=jupyter">
+  <img src="https://img.shields.io/badge/Scikit--Learn-ML-F7931E?logo=scikit-learn">
+  <img src="https://img.shields.io/badge/Pandas-Data-150458?logo=pandas">
+  <img src="https://img.shields.io/badge/NumPy-Math-013243?logo=numpy">
+</p>
 
-## Installation & Setup
 
 You can run this project using either **Google Colab** (cloud-based) or a **Local Environment** (using your favorite IDE and Jupyter Notebook). Choose the method that suits you best.
 
@@ -85,11 +100,11 @@ deactivate
 
 We built a simple web interface so you can test our water quality models without needing to run the full Python notebook.
 
-### Tools we used
-
-* **Streamlit:** To build the web page using only Python.
-* **Joblib:** To load our pre-trained machine learning models.
-* **Pandas:** To handle the data users enter.
+<p>
+  <img src="https://img.shields.io/badge/Streamlit-App-FF4B4B?logo=streamlit">
+  <img src="https://img.shields.io/badge/Joblib-Persistence-000000?logo=python">
+  <img src="https://img.shields.io/badge/Pandas-Data-150458?logo=pandas">
+</p>
 
 ### How it works
 
@@ -103,7 +118,6 @@ Make sure your virtual environment is active, then run this command in your term
 
 ```bash
 streamlit run app.py
-
 ```
 
 The app will open automatically in your browser at `http://localhost:8501`.
