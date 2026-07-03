@@ -1,8 +1,8 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-import random
 import os
+import joblib
 from datetime import datetime
 
 # 1. Configuration
@@ -37,19 +37,19 @@ with st.form("prediction_form"):
     c1, c2, c3 = st.columns(3)
     
     with c1:
-        ph = st.number_input("pH Level (0-14)", min_value=0.0, max_value=14.0, value=7.0)
-        hardness = st.number_input("Hardness (mg/L)", value=196.0)
-        solids = st.number_input("Solids / TDS (ppm)", value=22000.0)
+        ph = st.number_input("pH Level (0-14)", min_value=0.0, max_value=14.0, value=9.45)
+        hardness = st.number_input("Hardness (mg/L)", value=145.81)
+        solids = st.number_input("Solids / TDS (ppm)", value=13168.53)
         
     with c2:
-        chloramines = st.number_input("Chloramines (ppm)", value=7.1)
-        sulfate = st.number_input("Sulfate (mg/L)", value=333.0)
-        conductivity = st.number_input("Conductivity (μS/cm)", value=426.0)
+        chloramines = st.number_input("Chloramines (ppm)", value=9.44)
+        sulfate = st.number_input("Sulfate (mg/L)", value=310.58)
+        conductivity = st.number_input("Conductivity (μS/cm)", value=592.66)
         
     with c3:
-        organic_carbon = st.number_input("Organic Carbon (ppm)", value=14.2)
-        trihalomethanes = st.number_input("Trihalomethanes (μg/L)", value=66.3)
-        turbidity = st.number_input("Turbidity (NTU)", value=3.9)
+        organic_carbon = st.number_input("Organic Carbon (ppm)", value=8.61)
+        trihalomethanes = st.number_input("Trihalomethanes (μg/L)", value=77.58)
+        turbidity = st.number_input("Turbidity (NTU)", value=3.88)
         
     st.markdown("<br>", unsafe_allow_html=True)
     submitted = st.form_submit_button("Run Analysis", use_container_width=True)
@@ -58,16 +58,24 @@ with st.form("prediction_form"):
 if submitted:
     # Cache inputs in session state so they persist after rerun
     st.session_state.inputs = {
-        "pH": ph, "Hardness": hardness, "Solids": solids,
+        "ph": ph, "Hardness": hardness, "Solids": solids,
         "Chloramines": chloramines, "Sulfate": sulfate, 
-        "Conductivity": conductivity, "Organic_Carbon": organic_carbon,
+        "Conductivity": conductivity, "Organic_carbon": organic_carbon,
         "Trihalomethanes": trihalomethanes, "Turbidity": turbidity
     }
     
-    # TODO: Load real models using joblib
-    st.session_state.pred_rf = random.choice([0, 1])
-    st.session_state.pred_svm = random.choice([0, 1])
-    st.session_state.pred_lr = random.choice([0, 1])
+    # Convert in DataFrame for model input
+    input_data = pd.DataFrame([st.session_state.inputs])
+    
+    # Loading Models
+    rf_model = joblib.load("model/random_forest.pkl")
+    gb_model = joblib.load("model/gradient_boosting.pkl")
+    xgb_model = joblib.load("model/xgboost.pkl")
+    
+    # Do predictions and store in session state
+    st.session_state.pred_rf = rf_model.predict(input_data)[0]
+    st.session_state.pred_gb = gb_model.predict(input_data)[0]
+    st.session_state.pred_xgb = xgb_model.predict(input_data)[0]
     
     st.session_state.analysis_done = True
 
@@ -87,14 +95,15 @@ if st.session_state.analysis_done:
             col.markdown(f"<h3 style='color: {color}; margin-top: 0px;'>{status}</h3>", unsafe_allow_html=True)
             
         render_result(r1, "Random Forest", st.session_state.pred_rf)
-        render_result(r2, "Support Vector Machine", st.session_state.pred_svm)
-        render_result(r3, "Logistic Regression", st.session_state.pred_lr)
+        render_result(r2, "Gradient Boosting", st.session_state.pred_gb)
+        render_result(r3, "XGBoost", st.session_state.pred_xgb)
         
         st.markdown("---")
         
         # Section to save records for future research
         st.markdown("**Contribute to our research**")
         st.caption("Note: Saving this record will help us train the next version of our deep learning model.")
+        st.caption("WARNING: The accuracy of our models does not exceed 68%; this project is for educational purposes only, and it cannot detect the presence of hidden bacteria or heavy metals.")
         
         location = st.text_input("Location (Optional)", placeholder="e.g., Bangkok, Chao Phraya River")
         
@@ -104,8 +113,8 @@ if st.session_state.analysis_done:
             new_data["Location"] = location
             new_data["Timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             new_data["RF_Pred"] = st.session_state.pred_rf
-            new_data["SVM_Pred"] = st.session_state.pred_svm
-            new_data["LR_Pred"] = st.session_state.pred_lr
+            new_data["GB_Pred"] = st.session_state.pred_gb
+            new_data["XGB_Pred"] = st.session_state.pred_xgb
             
             df_new = pd.DataFrame([new_data])
             
