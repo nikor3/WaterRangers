@@ -114,7 +114,13 @@ We built a simple web interface so you can test our water quality models without
 
 ### Launch the app
 
-Make sure your virtual environment is active, then run this command in your terminal:
+Make sure your virtual environment is active, then move on "web" directory:
+
+```bash
+cd web/
+```
+
+And run the app :
 
 ```bash
 streamlit run app.py
